@@ -1,23 +1,23 @@
-const express = require('express');
-const cors = require('cors')
-const logger = require('morgan')
+import express, { Express, Request, Response } from 'express';
+import logger from 'morgan';
+import cors from 'cors';
 
-const app = express();
+const app: Express = express();
 
-const formatLogger = app.get("env") === "development" ? "dev" : "short";
+const formatLogger = app.get('env') === 'development' ? 'dev' : 'short';
 
-app.use(logger(formatLogger))
-app.use(cors())
-app.use(express.json())
+app.use(logger(formatLogger));
+app.use(cors());
+app.use(express.json());
 
-app.get((req, res) => {
-    res.status(201).json({ message: "OK" });
+app.use((req: Request, res: Response) => {
+    res.status(201).json({ message: 'Hello World' });
 });
 
-app.use((req, res) => {
-    res.status(401).json({message: 'Not found'});
+app.use((req: Request, res: Response) => {
+    res.status(204).json({ message: 'No Found' });
 });
 
-// TODO: Add costume error handler
+// TODO: Add custom error handler
 
-module.exports = app
+module.exports = app;
