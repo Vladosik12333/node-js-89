@@ -1,3 +1,3 @@
-const app = require("./app/app");
+import app from './app/app';
 
-app.listen(3000, () => console.log("Server running"));
+app.listen(3000, () => console.log('Server running'));

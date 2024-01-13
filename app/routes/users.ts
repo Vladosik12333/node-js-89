@@ -1,10 +1,9 @@
-const controllers = require("../controllers/users");
-
-const express = require("express");
+import express from 'express';
+import { userLogin } from '../controllers/users';
+import wrapper from '../helpers/wrapper';
 
 const router = express.Router();
 
-const wrapper = require("../helpers/wrapper");
+router.get('/login', wrapper(userLogin));
 
-router.get("/login", wrapper(controllers.userLogin));
-module.exports = router;
+export default router;

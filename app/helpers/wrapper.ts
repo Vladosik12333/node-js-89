@@ -1,13 +1,16 @@
-import { Request, Response } from "express";
+import { Request, Response } from 'express';
+import Icontroller from '../interfaces/controller';
 
-const wrapper =
-  (controller: (req: Request, res: Response) => void) =>
-  async (req: Request, res: Response) => {
+type Iwrapper = (
+    controller: Icontroller
+) => (req: Request, res: Response) => void;
+
+const wrapper: Iwrapper = (controller: Icontroller) => async (req, res) => {
     try {
-      await controller(req, res);
+        await controller(req, res);
     } catch (error) {
-      res.status(401).json({ message: "Error" });
+        res.status(401).json({ message: 'Error' });
     }
-  };
+};
 
-module.exports = wrapper;
+export default wrapper;
