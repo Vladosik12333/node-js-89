@@ -1,15 +1,16 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import Icontroller from '../interfaces/controller';
+import IHttpError from '../interfaces/httpError';
 
 type Iwrapper = (
     controller: Icontroller
-) => (req: Request, res: Response) => Promise<void>;
+) => (req: Request, res: Response, next:NextFunction) => Promise<void>;
 
-const wrapper: Iwrapper = (controller: Icontroller) => async (req, res) => {
+const wrapper: Iwrapper = (controller: Icontroller) => async (req, res, next) => {
     try {
         await controller(req, res);
-    } catch (error) {
-        res.status(401).json({ message: 'Error' });
+    } catch (error: IHttpError | Error | any) {
+        next(error)
     }
 };
 
