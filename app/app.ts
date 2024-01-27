@@ -16,12 +16,12 @@ app.use(express.json());
 app.use("/products", userRouter);
 
 app.use((_req: Request, res: Response) => {
-    res.status(404).json({ message: "Not Found" });
+  res.status(404).json({ message: "Not Found" });
 });
 
 app.use((error: HttpError, req: Request, res: Response, next: NextFunction) => {
-    const { status = 500, message = "Server Internal Error" } = error;
-    res.status(status).json({ message });
-})
+  const { status = 500, message = "Server Internal Error" } = error;
+  res.status(status).json({ message });
+});
 
 export default app;
